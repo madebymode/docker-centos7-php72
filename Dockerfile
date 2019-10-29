@@ -24,6 +24,9 @@ RUN sed -e 's/127.0.0.1:9000/9000/' \
         -e '/error_log/d' \
         -i /etc/php-fpm.d/www.conf
 
+# this update breaks fpm on docker, so we comment it out: https://github.com/iusrepo/php72u/issues/17
+RUN sed -e '/^pid/s//pid;/' -i /etc/php-fpm.conf
+
 CMD ["php-fpm", "-F"]
 
 EXPOSE 9000
