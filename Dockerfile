@@ -25,6 +25,12 @@ RUN sed -e 's/127.0.0.1:9000/9000/' \
         -e '/catch_workers_output/s/^;//' \
         -e '/error_log/d' \
         -i /etc/php-fpm.d/www.conf
+        
+#composer 1.10
+RUN curl -sS https://getcomposer.org/installer | php -- --version=1.10.22 --install-dir=/usr/local/bin --filename=composer
+#composer 2
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer2
+        
 
 # this update breaks fpm on docker, so we comment it out: https://github.com/iusrepo/php72u/issues/17
 RUN sed -e '/^pid/s//;pid/' -i /etc/php-fpm.conf
