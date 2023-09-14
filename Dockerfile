@@ -5,7 +5,6 @@ RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.
 RUN rpm -Uvh https://repo.ius.io/ius-release-el7.rpm
 #php72u is archived
 RUN yum-config-manager --enable ius-archive
-
 # Update and install latest packages and prerequisites
 RUN yum update -y \
     && yum install -y --nogpgcheck --setopt=tsflags=nodocs \
@@ -18,6 +17,11 @@ RUN yum update -y \
         php72u-xml \
         php72u-json \
         php72u-intl \
+        php72u-mcrypt \
+        php72u-bcmath \
+        zip \
+        unzip \
+        sendmail \
     && yum clean all && yum history new
 
 RUN sed -e 's/127.0.0.1:9000/9000/' \
